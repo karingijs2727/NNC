@@ -47,9 +47,10 @@ class NeuralNetworkCoordinates:
 
             print(f'Epoch {epoch+1}, Loss: {loss}')
 
-# Example usage
-network = NeuralNetworkCoordinates(input_neurons=3, hidden_neurons=[5, 5], output_neurons=10, dim=3)
-inputs = np.random.rand(3, 3)  # Random inputs matching the dimension
-targets = np.random.rand(10, 3)  # Random targets also in 3D
+
+dim = 4  # New dimension value
+network = NeuralNetworkCoordinates(input_neurons=3, hidden_neurons=[5, 5], output_neurons=10, dim=dim)
+inputs = np.random.rand(3, dim)  # Random inputs matching the new dimension
+targets = np.random.rand(10, dim)  # Random targets also in the new dimension
 
 network.train(inputs, targets, learning_rate=0.01, epochs=100)
