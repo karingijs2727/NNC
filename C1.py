@@ -1,11 +1,12 @@
 import numpy as np
 
+
 class NeuralNetworkCoordinates:
-    def __init__(self, input_neurons, hidden_neurons, output_neurons, dim):
-        self.dim = dim
-        self.input_layer = np.random.rand(input_neurons, dim)  # Initialize with specified dimensions
-        self.hidden_layers = [np.random.rand(n, dim) for n in hidden_neurons]
-        self.output_layer = np.random.rand(output_neurons, dim)
+    def __init__(self, input_neurons, hidden_neurons, output_neurons, dim_coords):
+        self.dim_coords = dim_coords
+        self.input_layer = np.random.rand(input_neurons, dim_coords)  # Initialize with specified dimensions
+        self.hidden_layers = [np.random.rand(n, dim_coords) for n in hidden_neurons]
+        self.output_layer = np.random.rand(output_neurons, dim_coords)
 
     def calculate_distances(self, layer1, layer2):
         diffs = layer1[np.newaxis, :, :] - layer2[:, np.newaxis, :]
@@ -14,7 +15,7 @@ class NeuralNetworkCoordinates:
 
     def feedforward(self, inputs):
         # Ensure input dimensions match
-        if inputs.shape[-1] != self.dim:
+        if inputs.shape[-1] != self.dim_coords:
             raise ValueError("Input dimensions must match the network's dimensionality")
 
         activations = inputs
@@ -34,7 +35,7 @@ class NeuralNetworkCoordinates:
         layer += learning_rate * gradients_reshaped
 
     def train(self, inputs, targets, learning_rate, epochs):
-        if targets.shape[-1] != self.dim:
+        if targets.shape[-1] != self.dim_coords:
             raise ValueError("Target dimensions must match the network's output dimensionality")
 
         for epoch in range(epochs):
@@ -48,9 +49,9 @@ class NeuralNetworkCoordinates:
             print(f'Epoch {epoch+1}, Loss: {loss}')
 
 
-dim = 4  # New dimension value
-network = NeuralNetworkCoordinates(input_neurons=3, hidden_neurons=[5, 5], output_neurons=10, dim=dim)
-inputs = np.random.rand(3, dim)  # Random inputs matching the new dimension
-targets = np.random.rand(10, dim)  # Random targets also in the new dimension
+dim_coords = 4  # New dimension value
+network = NeuralNetworkCoordinates(input_neurons=3, hidden_neurons=[5, 5], output_neurons=10, dim_coords=dim_coords)
+inputs = np.random.rand(3, dim_coords)  # Random inputs matching the new dimension
+targets = np.random.rand(10, dim_coords)  # Random targets also in the new dimension
 
 network.train(inputs, targets, learning_rate=0.01, epochs=100)
